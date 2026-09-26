@@ -175,7 +175,7 @@ export default tseslint.config(
   // attribute a person reads or a screen reader speaks. It cannot see a literal passed through a
   // variable; the parity test and the e2e leak scan cover what it misses.
   {
-    files: ["web/src/{shared,home}/**/*.tsx"],
+    files: ["web/src/{shared,home,rolodex}/**/*.tsx"],
     ignores: ["web/src/**/*.test.tsx"],
     rules: {
       "no-restricted-syntax": [
