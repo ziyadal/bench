@@ -30,14 +30,14 @@ test("the five sections", async ({ page }) => {
   await expect(
     page.getByText("Interacciones registradas por mes"),
   ).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "rolodex");
 
   await page.getByRole("link", { name: "Personas" }).click();
   await expect(
     page.getByRole("columnheader", { name: /Último contacto/ }),
   ).toBeVisible();
   await expect(page.getByRole("row").nth(1)).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "rolodex");
 
   await page.getByRole("link", { name: "Círculos" }).click();
   await expect(
@@ -45,7 +45,7 @@ test("the five sections", async ({ page }) => {
       .getByText("Suelta a alguien aquí")
       .or(page.locator(".person-card").first()),
   ).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "rolodex");
 
   await page.getByRole("link", { name: "Calendario" }).click();
   await expect(page.getByText("Próximamente: 30 días")).toBeVisible();
@@ -53,17 +53,17 @@ test("the five sections", async ({ page }) => {
   await expect(
     page.locator(".react-calendar__month-view__weekdays"),
   ).toContainText(/lun/i);
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "rolodex");
 
   await page.getByRole("link", { name: "Cronología" }).click();
   await expect(page.getByText(/entradas de todo el mundo/)).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "rolodex");
 });
 
 test("a person's page and every form on it", async ({ page }) => {
   await openMaya(page);
   await expect(page.getByRole("heading", { name: "Detalles" })).toBeVisible();
-  await expectNoEnglish(page, MAYA_DATA);
+  await expectNoEnglish(page, "rolodex", MAYA_DATA);
 
   for (const [button, title] of [
     ["Registrar interacción", /Registrar una interacción/],
@@ -79,7 +79,7 @@ test("a person's page and every form on it", async ({ page }) => {
     await expect(
       page.getByRole("dialog").getByRole("heading", { name: title }),
     ).toBeVisible();
-    await expectNoEnglish(page, MAYA_DATA);
+    await expectNoEnglish(page, "rolodex", MAYA_DATA);
     await closeModal(page);
   }
 });
@@ -90,18 +90,18 @@ test("the people table's own modals", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Añadir una persona" }),
   ).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "rolodex");
   await closeModal(page);
 
   await page.getByRole("button", { name: "Importar" }).click();
   await expect(page.getByText("Elige un archivo .csv o .vcf")).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "rolodex");
   await closeModal(page);
 
   await page.getByRole("row").nth(1).hover();
   await page.getByRole("row").nth(1).getByTitle("Eliminar").click();
   await expect(page.getByRole("dialog", { name: /¿Eliminar a/ })).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "rolodex");
   await page.getByRole("button", { name: "Cancelar" }).click();
 });
 
@@ -115,5 +115,5 @@ test("logging a contact reads back in Spanish", async ({ page }) => {
   await page.getByRole("button", { name: "Encuentro" }).click();
   await page.getByRole("button", { name: "Guardar interacción" }).click();
   await expect(page.getByText(/El contador vuelve a empezar/)).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "rolodex");
 });

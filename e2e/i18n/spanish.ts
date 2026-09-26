@@ -3,7 +3,7 @@
  * Spanish, searched for in what a Spanish page shows or speaks. A page that still says "Delete"
  * after the switch fails here, wherever the literal came from.
  */
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, type Page } from "@playwright/test";
@@ -19,13 +19,20 @@ const read = (app: string, lang: string) =>
     readFileSync(path.join(src, app, "locales", `${lang}.json`), "utf8"),
   ) as Catalog;
 
-/** English values with no {placeholders} left in, split at them so each fixed part is searched. */
-function englishOnly(): string[] {
+/** The documents with catalogs of their own; the launcher's text is in the shared one. */
+type App = "home" | "crm" | "space" | "rolodex" | "groove";
+
+/**
+ * An app's English values that differ from their Spanish, plus the strip's, split at the
+ * {placeholders} so each fixed part is searched on its own. Per app, because one app's
+ * vocabulary is another's data: CRM says "Status", and Space's seed has a property called that.
+ */
+function englishOnly(app: App): string[] {
   const out = new Set<string>();
-  for (const app of readdirSync(src)) {
-    if (!existsSync(path.join(src, app, "locales"))) continue;
-    const en = read(app, "en");
-    const es = read(app, "es");
+  for (const dir of ["shared", app]) {
+    if (!existsSync(path.join(src, dir, "locales"))) continue;
+    const en = read(dir, "en");
+    const es = read(dir, "es");
     for (const [key, value] of Object.entries(en)) {
       if (value === es[key]) continue;
       for (const part of value.split(/\{\w+\}/)) {
@@ -36,8 +43,6 @@ function englishOnly(): string[] {
   }
   return [...out];
 }
-
-const ENGLISH = englishOnly();
 
 /** Open the app in Spanish from the first paint, the way a returning Spanish visitor sees it. */
 export async function inSpanish(page: Page): Promise<void> {
@@ -80,14 +85,16 @@ function shownText(page: Page): Promise<string[]> {
  */
 export async function expectNoEnglish(
   page: Page,
+  app: App,
   data: (string | RegExp)[] = [],
 ): Promise<void> {
+  const english = englishOnly(app);
   const isData = (text: string) =>
     data.some((d) => (typeof d === "string" ? text === d : d.test(text)));
   const leaks = (await shownText(page)).filter(
     (text) =>
       !isData(text) &&
-      ENGLISH.some(
+      english.some(
         (en) => text === en || (en.split(" ").length >= 3 && text.includes(en)),
       ),
   );

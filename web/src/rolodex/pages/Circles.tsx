@@ -21,6 +21,7 @@ import { EmptyState } from "../components/Modal";
 import { circleLabel, relativeDays } from "../format";
 import { useToast } from "../store";
 import { useT } from "../strings";
+import { useDragText } from "../../shared/dragText";
 
 const CIRCLE_DOTS: Record<Circle, string> = {
   inner: "var(--purple)",
@@ -125,6 +126,7 @@ function Column({
 
 export default function Circles() {
   const t = useT();
+  const dragText = useDragText();
   const { people, loaded, refresh } = useStore();
   const toast = useToast();
   const [activePerson, setActivePerson] = useState<PersonComputed | null>(null);
@@ -206,6 +208,7 @@ export default function Circles() {
         <div className="card card-pad muted">{t("common.loading")}</div>
       ) : (
         <DndContext
+          accessibility={dragText}
           sensors={sensors}
           onDragStart={onDragStart}
           onDragEnd={(e) => void onDragEnd(e)}

@@ -30,5 +30,11 @@
   "home.groove.detail": "Cuatro unidades de síntesis, un transporte y un filtro DJ maestro. Web Audio puro: sin muestras, sin plugins, sin margen de latencia.",
   "home.groove.fact1": "4 unidades",
   "home.groove.fact2": "16 pasos",
-  "home.groove.fact3": "Web Audio"
+  "home.groove.fact3": "Web Audio",
+  "drag.instructions": "Para levantar un elemento, pulsa Espacio o Intro. Usa las flechas para moverlo, Espacio o Intro de nuevo para soltarlo y Escape para cancelar.",
+  "drag.picked": "Elemento levantado.",
+  "drag.over": "Sobre una zona para soltar.",
+  "drag.outside": "Fuera de cualquier zona para soltar.",
+  "drag.dropped": "Elemento soltado.",
+  "drag.cancelled": "Movimiento cancelado."
 }

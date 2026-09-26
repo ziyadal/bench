@@ -12,7 +12,7 @@ test("the five sections", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Panel" })).toBeVisible();
   await expect(page.getByTestId("dash-total")).toContainText("US$");
   await expect(page.getByText("Embudo de ingresos")).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "crm");
 
   for (const [link, heading] of [
     ["Organizaciones", "Organizaciones"],
@@ -22,7 +22,7 @@ test("the five sections", async ({ page }) => {
     await page.getByRole("link", { name: link }).click();
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
     await expect(page.getByRole("row").nth(1)).toBeVisible();
-    await expectNoEnglish(page);
+    await expectNoEnglish(page, "crm");
   }
 
   await page.getByRole("link", { name: "Embudo" }).click();
@@ -35,7 +35,7 @@ test("the five sections", async ({ page }) => {
     "Perdido",
   ])
     await expect(page.locator(".col-title", { hasText: stage })).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "crm");
 });
 
 test("each detail page and every form", async ({ page }) => {
@@ -47,21 +47,21 @@ test("each detail page and every form", async ({ page }) => {
     await page.goto(list);
     await page.getByRole("button", { name: openButton }).click();
     await expect(page.getByRole("dialog", { name: formTitle })).toBeVisible();
-    await expectNoEnglish(page);
+    await expectNoEnglish(page, "crm");
     await page.getByRole("button", { name: "Cancelar" }).click();
 
     await page.getByRole("row").nth(1).click();
     await expect(page.getByRole("heading", { name: "Detalles" })).toBeVisible();
-    await expectNoEnglish(page);
+    await expectNoEnglish(page, "crm");
 
     await page.getByRole("button", { name: "Editar" }).click();
     await expect(page.getByRole("dialog")).toBeVisible();
-    await expectNoEnglish(page);
+    await expectNoEnglish(page, "crm");
     await page.getByRole("button", { name: "Cancelar" }).click();
 
     await page.getByRole("button", { name: "Eliminar" }).click();
     await expect(page.getByRole("dialog", { name: /Eliminar/ })).toBeVisible();
-    await expectNoEnglish(page);
+    await expectNoEnglish(page, "crm");
     await page.getByRole("button", { name: "Cancelar" }).click();
   }
 
@@ -69,7 +69,7 @@ test("each detail page and every form", async ({ page }) => {
   await expect(
     page.getByRole("dialog", { name: "Registrar actividad" }),
   ).toBeVisible();
-  await expectNoEnglish(page);
+  await expectNoEnglish(page, "crm");
 });
 
 test("the pipeline's keyboard drag works and speaks Spanish", async ({

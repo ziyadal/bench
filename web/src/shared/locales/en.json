@@ -30,5 +30,11 @@
   "home.groove.detail": "Four synth units, one transport and a master DJ filter. Pure Web Audio — no samples, no plugins, no latency budget.",
   "home.groove.fact1": "4 units",
   "home.groove.fact2": "16 steps",
-  "home.groove.fact3": "Web Audio"
+  "home.groove.fact3": "Web Audio",
+  "drag.instructions": "To pick up an item, press Space or Enter. Use the arrow keys to move it, Space or Enter again to drop it, and Escape to cancel.",
+  "drag.picked": "Picked up.",
+  "drag.over": "Over a drop area.",
+  "drag.outside": "Not over a drop area.",
+  "drag.dropped": "Dropped.",
+  "drag.cancelled": "Move cancelled."
 }
