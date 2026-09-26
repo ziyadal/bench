@@ -1,7 +1,7 @@
 /** Every CRM screen and form in Spanish, scanned for English the catalogs should have covered. */
 import { test, expect } from "../fixtures";
 import { json, type Deal } from "../api";
-import { expectNoEnglish, inSpanish } from "./spanish";
+import { expectNoEnglish, inSpanish } from "./leaks";
 
 test.beforeEach(async ({ page }) => {
   await inSpanish(page);

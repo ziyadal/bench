@@ -1,7 +1,7 @@
 /** Every Rolodex screen and form in Spanish, scanned for English the catalogs should have covered. */
 import { test, expect } from "../fixtures";
 import type { Page } from "@playwright/test";
-import { expectNoEnglish, inSpanish } from "./spanish";
+import { expectNoEnglish, inSpanish } from "./leaks";
 
 test.beforeEach(async ({ page }) => {
   await inSpanish(page);

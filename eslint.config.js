@@ -175,7 +175,7 @@ export default tseslint.config(
   // attribute a person reads or a screen reader speaks. It cannot see a literal passed through a
   // variable; the parity test and the e2e leak scan cover what it misses.
   {
-    files: ["web/src/{shared,home,rolodex,crm,space,groove}/**/*.tsx"],
+    files: ["web/src/**/*.tsx"],
     ignores: ["web/src/**/*.test.tsx"],
     rules: {
       "no-restricted-syntax": [
@@ -210,6 +210,19 @@ export default tseslint.config(
     files: ["e2e/**/*.ts"],
     extends: [playwright.configs["flat/recommended"]],
     rules: {
+      // The i18n specs assert through these helpers, which scan the whole page and call expect.
+      "playwright/expect-expect": [
+        "warn",
+        {
+          assertFunctionNames: [
+            "expectEnglish",
+            "expectSpanish",
+            "expectNoEnglish",
+            "expectNoSpanish",
+          ],
+        },
+      ],
+
       // `await expect.poll(...)` is how this suite asserts on anything eventually consistent, and
       // the rule does not recognise it, so it reports those tests as having no assertion at all.
       "sonarjs/assertions-in-tests": "off",

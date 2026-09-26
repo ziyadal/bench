@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { NavLink, Route, Routes } from "react-router";
 import BenchNav from "../shared/BenchNav";
 import { IconCrm } from "../shared/AppIcons";
@@ -33,6 +34,9 @@ const NAV = [
 
 export default function App() {
   const t = useT();
+  useEffect(() => {
+    document.title = t("app.name");
+  }, [t]);
   return (
     <>
       <BenchNav active="crm" />

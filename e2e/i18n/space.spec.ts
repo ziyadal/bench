@@ -4,7 +4,7 @@
  */
 import { test, expect } from "../fixtures";
 import type { Page } from "@playwright/test";
-import { expectNoEnglish, inSpanish } from "./spanish";
+import { expectNoEnglish, inSpanish } from "./leaks";
 
 /** The seed's first page is called "Home", which is also the strip's English for the launcher. */
 const scan = (page: Page) => expectNoEnglish(page, "space", ["Home"]);

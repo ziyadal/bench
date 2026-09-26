@@ -1,6 +1,6 @@
 /** Groove in Spanish: the buttons and every tooltip translated, the legends left as printed. */
 import { test, expect } from "../fixtures";
-import { expectNoEnglish, inSpanish } from "./spanish";
+import { expectNoEnglish, inSpanish } from "./leaks";
 
 test("the instrument's controls speak Spanish and its legends stay put", async ({
   page,
