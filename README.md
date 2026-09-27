@@ -224,7 +224,7 @@ Pick a name that says what you are doing, like `internationalize`.
 ## 3.2 Let your coding agent do the plan
 
 Open the repository in your coding agent - Claude Code, Cursor, or whatever you use - and describe
-the change you were given, and ask for a plan with success critiera.
+the change you were given, and ask for a plan with success criteria.
 
 The repository is set up to brief the agent for you. `CLAUDE.md` and `AGENTS.md` at the root pull in
 the house rules, so your agent already knows the architecture, the coding standards and the process
